@@ -1,3 +1,4 @@
+//not in eclipse
 //create a folder and save one,two,rmiserver,rmiclient on notepad and save as .java and all files in folder  
 //open cmd
 //cd path of folder 
