@@ -1,0 +1,29 @@
+package inet;
+
+import java.io.*;
+import java.net.*;
+
+class Inet {
+    public static void main(String[] args) throws UnknownHostException {
+
+        //InetAddress of Local Host
+        InetAddress address1 = InetAddress.getLocalHost();
+        System.out.println("InetAddress of Local Host: " + address1);
+
+        //InetAddress of Named Host
+        InetAddress address2 = InetAddress.getByName("127.0.0.1");
+        System.out.println("InetAddress of Named Host: " + address2);
+
+        //ALL InetAddresses of Named Host
+        InetAddress[] address3 = InetAddress.getAllByName("127.0.0.1");
+        for (InetAddress addr : address3) {
+            System.out.println("ALL InetAddresses of Named Host: " + addr);
+        }
+
+        //InetAddresses of Host with specified IP Address
+        byte[] IPAddress = { 125, 0, 0, 1 };
+        InetAddress address4 = InetAddress.getByAddress(IPAddress);
+        System.out.println("InetAddress of Host with specified IP Address: " + address4);
+    }
+}
+
