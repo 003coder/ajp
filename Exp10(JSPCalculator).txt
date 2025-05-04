@@ -1,0 +1,100 @@
+//Window → Preferences → Server → Runtime Environments.
+//Add Server and select Apache Tomcat from the list.
+//Select tomcat version--Browse Apache--Finish
+
+//File → New → Dynamic Web Project.
+//Target runtime--Apache version--Name Project--tick generate xml
+//Create Servlet--name ServletCalculator--next twice--tick init and delete--paste code
+//Select project--new html file--index.html--paste code
+//index.htm run on server--select apache--finish
+
+
+//index.html
+<html>
+<head>
+    <title>Calculator App</title>
+</head>
+<body>
+    <form action="CalculatorServlet" method="POST"> 
+        Enter First Number: <input type="text" name="txtN1"><br>
+        Enter Second Number: <input type="text" name="txtN2"><br>
+        Select an Operation: <br>
+        ADDITION <input type="radio" name="opr" value="+"><br>
+        SUBTRACTION <input type="radio" name="opr" value="-"><br>
+        MULTIPLY <input type="radio" name="opr" value="*"><br>
+        DIVIDE <input type="radio" name="opr" value="/"><br><br>
+        <input type="reset">
+        <input type="submit" value="Calculate">
+    </form>
+</body>
+</html>
+
+//ServletCalculator.java
+package servletcalculator;
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/CalculatorServlet")
+public class ServletCalculator extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    // Use doPost to handle form submission
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<html><head><title>Servlet Calculator</title></head><body>");
+
+        try {
+            // Read the numbers from the form
+            double n1 = Double.parseDouble(request.getParameter("txtN1"));
+            double n2 = Double.parseDouble(request.getParameter("txtN2"));
+            String opr = request.getParameter("opr");
+
+            if (opr == null || opr.isEmpty()) {
+                out.println("<h1>Please select an operation!</h1>");
+            } else {
+                double result = 0;
+                boolean validOperation = true;
+
+                // Perform the operation based on the user selection
+                switch (opr) {
+                    case "+":
+                        result = n1 + n2;
+                        break;
+                    case "-":
+                        result = n1 - n2;
+                        break;
+                    case "*":
+                        result = n1 * n2;
+                        break;
+                    case "/":
+                        if (n2 != 0) {
+                            result = n1 / n2;
+                        } else {
+                            out.println("<h1>Error: Cannot divide by zero!</h1>");
+                            validOperation = false;
+                        }
+                        break;
+                    default:
+                        out.println("<h1>Invalid operation selected.</h1>");
+                        validOperation = false;
+                        break;
+                }
+
+                if (validOperation) {
+                    out.println("<h1>Result = " + result + "</h1>");
+                }
+            }
+        } catch (NumberFormatException e) {
+            out.println("<h1>Error: Invalid input. Please enter valid numbers.</h1>");
+        }
+
+        out.println("</body></html>");
+    }
+}
+

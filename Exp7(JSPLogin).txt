@@ -1,0 +1,81 @@
+//Window → Preferences → Server → Runtime Environments.
+//Add Server and select Apache Tomcat from the list.
+//Select tomcat version--Browse Apache--Finish
+
+//File → New → Dynamic Web Project.
+//Target runtime--Apache version--Name Project--tick generate xml
+//Create Servlet--name Login--next twice--tick init and delete--paste code
+//Select project--new html file--index.html--paste code
+//index.html run on server--select apache--finish
+//Login.java
+
+package login;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/LoginServlet")
+public class Login extends HttpServlet 
+{
+    private static final long serialVersionUID = 1L;
+
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException 
+    {
+        // Display login form if GET request is received
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+
+        out.println("<html><body>");
+        out.println("<h2>Login Page</h2>");
+        out.println("<form action='LoginServlet' method='post'>");
+        out.println("Username: <input type='text' name='username' /><br><br>");
+        out.println("Password: <input type='password' name='password' /><br><br>");
+        out.println("<input type='submit' value='Login' />");
+        out.println("</form>");
+        out.println("</body></html>");
+    }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException 
+    {
+       
+        // Get parameters from client
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        // Set response content type
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+
+        // Display username and password
+        out.println("<html><body>");
+        out.println("<h2>Login Details Received:</h2>");
+        out.println("Username: " + username + "<br>");
+        out.println("Password: " + password + "<br>");
+        out.println("</body></html>");
+    }
+    
+}
+
+//index.html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Form</title>
+</head>
+<body>
+    <h2>Login Page</h2>
+    <form action="LoginServlet" method="post">
+        Username: <input type="text" name="username" /><br><br>
+        Password: <input type="password" name="password" /><br><br>
+        <input type="submit" value="Login" />
+    </form>
+</body>
+</html>
