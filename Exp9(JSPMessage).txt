@@ -1,0 +1,26 @@
+//Window → Preferences → Server → Runtime Environments.
+//Add Server and select Apache Tomcat from the list.
+//Select tomcat version--Browse Apache--Finish
+//File → New → Dynamic Web Project.
+//Target runtime--Apache version--tick generate xml
+//Select project--new jspfile--index.jsp--paste code
+//run on server--select apache--finish
+
+//code
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>  
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/loose.dtd">  
+<html>  
+<head>  
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">  
+<title>My First JSP Assignment</title>  
+</head>  
+<body>  
+<h1>Hello JSP</h1>  
+<% 
+    // Java code inside the JSP page
+    int result = 3 * 9 * 8 * 2;
+    out.print("Result is " + result); 
+%>  
+</body>  
+</html>  
