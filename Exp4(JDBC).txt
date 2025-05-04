@@ -3,7 +3,7 @@
 //public static void main
 //use root as password and username
 //Right-click your Java project → Build Path → Configure Build Path.
-//Click Libraries → Add External JARs.
+//Click  Libraries → Module Path -> Add External JARs.
 //Browse to the extracted JDBC driver .jar file (e.g., mysql-connector-j-8.x.x.jar) and add it.
 //Then create package and class
 
