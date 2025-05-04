@@ -1,6 +1,7 @@
 //no module.java
 //java 1.8
-//no public static void main
+//public static void main
+
 package mouse;
 import java.awt.*;
 import java.awt.event.*;
