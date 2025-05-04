@@ -1,0 +1,83 @@
+//create a folder and save one,two,rmiserver,rmiclient on notepad and save as .java and all files in folder  
+//open cmd
+//cd path of folder 
+//set path="C:\Program Files\Java\jdk-1.8\bin"
+//javac *.java
+//rmic two
+//start rmiregistry
+//java rmiserver
+//open 2nd cmd 
+//cd path of folder 
+//set path="C:\Program Files\Java\jdk-1.8\bin"
+//java rmiclient
+
+
+//one
+import java.rmi.*;
+
+public interface one extends Remote {
+    public int palin(String a) throws RemoteException;
+}
+
+//two
+import java.rmi.*;
+import java.rmi.server.*;
+
+public class two extends UnicastRemoteObject implements one{
+
+    public two() throws RemoteException {
+        super();
+    }
+
+    public int palin(String a) throws RemoteException {
+        System.out.println("Hello");
+        String original = a;
+        String reversed = new StringBuilder(a).reverse().toString();
+        System.out.println("Original : " + original);
+        System.out.println("Reversed : " + reversed);
+
+        if (original.equals(reversed)) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+}
+
+//rmiclient
+import java.rmi.*;
+
+public class rmiclient{
+    public static void main(String[] args) {
+        try {
+            String url = "rmi://localhost/palin";
+            one onex = (one) Naming.lookup(url);
+            int result = onex.palin("madam");
+            System.out.println("Result: " + result);
+            if (result == 1) {
+                System.out.println("The given string is a Palindrome");
+            } else {
+                System.out.println("The given string is not a Palindrome");
+            }
+        } catch (Exception e) {
+            System.out.println("Exception: " + e);
+        }
+    }
+}
+
+
+//rmiserver
+import java.rmi.*;
+
+public class rmiserver{
+    public static void main(String[] args) {
+        try {
+            two twox = new two();
+            Naming.rebind("palin", twox);  // Use `rebind` to avoid AlreadyBoundException
+            System.out.println("Object registered");
+        } catch (Exception e) {
+            System.out.println("Exception: " + e);
+        }
+    }
+}
+
