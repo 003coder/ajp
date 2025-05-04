@@ -1,0 +1,35 @@
+//java 17
+//delete module.java
+//public static void main
+//use root as password and username
+//Right-click your Java project → Build Path → Configure Build Path.
+//Click Libraries → Add External JARs.
+//Browse to the extracted JDBC driver .jar file (e.g., mysql-connector-j-8.x.x.jar) and add it.
+//Then create package and class
+
+
+package jdbcdata;
+
+import java.sql.*;
+
+public class Jdbcdata {
+
+    static final String DB_URL = "jdbc:mysql://localhost:3306/mysql"; // connect to default DB
+    static final String USER = "root";      // use a user with CREATE DB privilege
+    static final String PASS = "Monkey@06";
+
+    public static void main(String[] args) {
+        try (
+            Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            Statement stmt = conn.createStatement();
+        ) {
+            String sql = "CREATE DATABASE STUDENTS";
+            stmt.executeUpdate(sql);
+            System.out.println("Database created successfully...");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+//to see the database in sql -SHOW DATABASES;
