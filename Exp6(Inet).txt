@@ -1,3 +1,7 @@
+//java 17
+//module.java
+//public static void main
+
 package inet;
 
 import java.io.*;
